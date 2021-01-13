@@ -6,12 +6,6 @@
     <meta name="context-path" th:content="@{/}"/>
 
     <th:block th:include="fragments/include-link"></th:block>
-    <style>
-      .fakeimg {
-        height: 200px;
-        background: #aaa;
-      }
-  </style>
 </head>
 <body>
     <th:block th:include="fragments/header"></th:block>
@@ -19,29 +13,24 @@
     <div class="container" style="margin-top:30px">
         <div class="row">
             <div class="col-sm-12">
+                <a href="/idea/save" role="button" class="btn btn-primary">投稿</a>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+                        <th>id</th>
+                        <th>タイトル</th>
+                        <th>説明</th>
+                        <th>登録者</th>
+                        <th>登録日</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
+                    <tr th:each="idea : ${ideas}">
+                        <td th:text="${idea.id}">100</td>
+                        <td th:text="${idea.title}"></td>
+                        <td th:text="${idea.content}"></td>
+                        <td th:text="${idea.author}"></td>
+                        <td th:text="${idea.createdDate}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -52,7 +41,6 @@
     <div class="jumbotron text-center" style="margin-bottom:0">
         <p>Footer</p>
     </div>
-
 
 <th:block th:include="fragments/include-script"></th:block>
 </body>
