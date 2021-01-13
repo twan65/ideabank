@@ -34,5 +34,6 @@ public class Idea extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.isDeleted = false;
     }
 }

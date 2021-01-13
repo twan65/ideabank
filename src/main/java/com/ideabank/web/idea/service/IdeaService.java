@@ -2,6 +2,7 @@ package com.ideabank.web.idea.service;
 
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaListResponseDto;
+import com.ideabank.web.idea.dto.IdeaSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +26,16 @@ public class IdeaService {
         return ideaRepository.findAll().stream()
                 .map(IdeaListResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * アイデアを登録する。
+     *
+     * @param requestDto アイデア情報
+     * @return アイデアID
+     */
+    @Transactional
+    public Long save(IdeaSaveRequestDto requestDto) {
+        return ideaRepository.save(requestDto.toEntity()).getId();
     }
 }
