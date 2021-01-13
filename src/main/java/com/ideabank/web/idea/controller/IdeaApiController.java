@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RestController("/api/v1")
+@RestController
 public class IdeaApiController {
 
-    private final IdeaService ideaService;
+  private final IdeaService ideaService;
 
-    /**
-     * アイデアを登録する。
-     *
-     * @param requestDto アイデア情報
-     * @return アイデアID
-     */
-    @PostMapping("/idea")
-    public Long save(@RequestBody IdeaSaveRequestDto requestDto) {
-        return ideaService.save(requestDto);
-    }
+  /**
+   * アイデアを登録する。
+   *
+   * @param requestDto アイデア情報
+   * @return アイデアID
+   */
+  @PostMapping("/api/v1/idea")
+  public Long save(@RequestBody IdeaSaveRequestDto requestDto) {
+    return ideaService.save(requestDto);
+  }
 }
