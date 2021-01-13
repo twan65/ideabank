@@ -6,34 +6,32 @@
     <meta name="context-path" th:content="@{/}"/>
 
     <th:block th:include="fragments/include-link"></th:block>
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
 <body>
     <th:block th:include="fragments/header"></th:block>
+    <div class="box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <a href="/idea/save" role="button" class="btn btn-primary">投稿</a>
+                </div>
+                <div th:each="idea : ${ideas}" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 
-    <div class="container" style="margin-top:30px">
-        <div class="row">
-            <div class="col-sm-12">
-                <a href="/idea/save" role="button" class="btn btn-primary">投稿</a>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>タイトル</th>
-                        <th>説明</th>
-                        <th>登録者</th>
-                        <th>登録日</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="idea : ${ideas}">
-                        <td th:text="${idea.id}">100</td>
-                        <td th:text="${idea.title}"></td>
-                        <td th:text="${idea.content}"></td>
-                        <td th:text="${idea.author}"></td>
-                        <td th:text="${idea.createdDate}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <div class="box-part text-center">
+                        <div class="title">
+                            <h4 th:text="${idea.title}"></h4>
+                        </div>
+
+                        <div class="text">
+                            <span th:text="${idea.content}"></span>
+                        </div>
+
+                        <a href="#">Read More</a>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
