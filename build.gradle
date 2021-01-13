@@ -24,10 +24,17 @@ repositories {
     mavenCentral()
 }
 
+
+ext {
+    set('lombokVersion', '1.18.8')
+}
+
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     // webjars
     implementation 'org.webjars:jquery:3.5.1'
@@ -37,13 +44,15 @@ dependencies {
     compile('org.springframework.session:spring-session-jdbc')
     compile('org.springframework.boot:spring-boot-devtools')
 
+    implementation "org.projectlombok:lombok:${lombokVersion}"
+
 
 
 //    compile('org.springframework.boot:spring-boot-starter-data-redis')
     //embedded-redis
 //    compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.1'
 
-    compile('org.projectlombok:lombok')
+//    compile('org.projectlombok:lombok')
     compile('com.h2database:h2')
 
     // test
