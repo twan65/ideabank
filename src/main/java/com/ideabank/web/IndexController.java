@@ -13,7 +13,7 @@ public class IndexController {
     private final IdeaService ideaService;
 
     /**
-     * TOP画面を表示（前アイデアを取得）
+     * TOP画面を返却する。（前アイデアを取得）
      *
      * @param model
      * @return TOP画面
@@ -24,5 +24,15 @@ public class IndexController {
         model.addAttribute("ideas", ideaService.findAll());
 
         return "index";
+    }
+
+    /**
+     * アイデア登録画面を返却する。
+     *
+     * @return
+     */
+    @GetMapping("/idea/save")
+    public String ideaSave() {
+        return "idea/save";
     }
 }
