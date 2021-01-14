@@ -4,6 +4,7 @@ import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaResponseDto;
 import com.ideabank.web.idea.dto.IdeaSaveRequestDto;
+import com.ideabank.web.idea.dto.IdeaUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,5 +52,23 @@ public class IdeaService {
     @Transactional
     public Long save(IdeaSaveRequestDto requestDto) {
         return ideaRepository.save(requestDto.toEntity()).getId();
+    }
+
+    /**
+     * アイデアを更新する。
+     * @param id アイデアID
+     * @param requestDto アイデア詳細情報
+     * @return アイデアID
+     */
+    @Transactional
+    public Long update(Long id, IdeaUpdateRequestDto requestDto) {
+
+        Idea idea = ideaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("該当のアイデアがありません。Id=" + id));
+
+        // 特にSQLを投げなくてもJPAの永続性コンテキストのため、Updateされる。（Dirty checking）
+        idea.update(requestDto.getTitle(), requestDto.getContent());
+
+        return id;
     }
 }

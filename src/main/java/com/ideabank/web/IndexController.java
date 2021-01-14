@@ -41,7 +41,7 @@ public class IndexController {
    * アイデア詳細を１件取得して詳細画面を返却する。
    * @param id アイデアID
    * @param model
-   * @return アイデア画面
+   * @return アイデア詳細画面
    */
   @GetMapping("/idea/{id}")
   public String ideaDetail(@PathVariable Long id, Model model) {
@@ -49,5 +49,19 @@ public class IndexController {
     model.addAttribute("idea", ideaService.findById(id));
 
     return "idea/detail";
+  }
+
+  /**
+   * アイデア詳細を１件取得してアイデア編集画面を返却する。
+   * @param id アイデアID
+   * @param model
+   * @return アイデア編集画面
+   */
+  @GetMapping("/idea/edit/{id}")
+  public String ideaEdit(@PathVariable Long id, Model model) {
+
+    model.addAttribute("idea", ideaService.findById(id));
+
+    return "idea/edit";
   }
 }

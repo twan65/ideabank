@@ -36,4 +36,9 @@ public class Idea extends BaseTimeEntity {
         this.author = author;
         this.isDeleted = false;
     }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

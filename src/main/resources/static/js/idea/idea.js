@@ -5,6 +5,10 @@ var idea = {
         $('#btn-save').on('click', function () {
             _this.save();
         });
+
+        $('#btn-edit').on('click', function () {
+            _this.edit();
+        });
     },
     save : function () {
         var data = {
@@ -18,13 +22,33 @@ var idea = {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function(data) {
-            alert('記事が登録されました。');
+            alert('アイデアが登録されました。');
             window.location.href = '/';
         }).fail(function(error) {
             alert(JSON.stringify(error));
         });
     },
+    edit : function () {
+        var data = {
+            title: $('#title').val(),
+            content: $('#content').val(),
+        };
 
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/idea/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function(data) {
+            alert('アイデアが更新されました。');
+            window.location.href = '/';
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
 };
 
 idea.init();
