@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaSaveRequestDto;
+import com.ideabank.web.idea.dto.IdeaUpdateRequestDto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
@@ -22,6 +22,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -73,5 +75,44 @@ public class IdeaApiControllerTest {
 
     assertThat(postsList.get(0).getTitle()).isEqualTo(title);
     assertThat(postsList.get(0).getContent()).isEqualTo(content);
+  }
+
+  @Test
+  @DisplayName("アイデア編集処理を検証する。")
+  public void updateIdea() throws Exception {
+    // アイデア登録
+    Idea saveIdea = ideaRepository.save(Idea.builder()
+            .title("title")
+            .content("content")
+            .author("testUser")
+            .build());
+
+    Long updateId = saveIdea.getId();
+    String updateTitle = "title2";
+    String updateContent = "content2";
+
+    // リクエストパラメータを作成
+    IdeaUpdateRequestDto requestDto = IdeaUpdateRequestDto.builder()
+            .title(updateTitle)
+            .content(updateContent)
+            .build();
+
+    // URLを作成
+    String url = "http://localhost:" + port + "/api/v1/idea/" + updateId;
+
+    HttpEntity<IdeaUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+
+    // RestTemplateを利用してAPIを呼び出す。（URL、HTTPメソッド、パラメータ、戻り値の型）
+    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+    // 検証
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+    // データを取得して検証を行う。
+    List<Idea> postsList = ideaRepository.findAll();
+
+    assertThat(postsList.get(0).getTitle()).isEqualTo(updateTitle);
+    assertThat(postsList.get(0).getContent()).isEqualTo(updateContent);
   }
 }

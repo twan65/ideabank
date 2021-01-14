@@ -27,12 +27,12 @@
 
                 <div class="form-group">
                     <label for="author">登録者:</label>
-                    <textarea class="form-control" rows="5" id="author" th:field="*{author}" readonly></textarea>
+                    <input class="form-control" rows="5" id="author" th:field="*{author}" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="createdDate">登録日:</label>
-                    <textarea class="form-control" rows="5" id="createdDate" th:field="*{createdDate}" readonly></textarea>
+                    <input class="form-control" rows="5" id="createdDate" th:field="*{createdDate}" readonly>
                 </div>
 
                 <div class="form-group">
@@ -42,7 +42,7 @@
 
             </form>
 
-            <a href="/" type="button" class="btn btn-primary" id="btn-edit">変更</a>
+            <a th:href="@{/idea/edit/{id}(id = ${idea.id})}" type="button" class="btn btn-primary">変更</a>
         </div>
     </div>
 </div>
