@@ -27,7 +27,7 @@
                             <span th:text="${idea.content}"></span>
                         </div>
 
-                        <a href="#">Read More</a>
+                        <a th:href="@{/idea/{id}(id = ${idea.id})}">Read More</a>
 
                     </div>
                 </div>

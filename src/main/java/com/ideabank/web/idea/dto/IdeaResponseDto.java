@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class IdeaListResponseDto {
+public class IdeaResponseDto {
 
     private long id;
     private String title;
@@ -15,7 +15,7 @@ public class IdeaListResponseDto {
     private LocalDateTime createdDate;
 //    private boolean isDeleted;
 
-    public IdeaListResponseDto(Idea idea) {
+    public IdeaResponseDto(Idea idea) {
         this.id = idea.getId();
         this.title = idea.getTitle();
         this.author = idea.getAuthor();

@@ -22,7 +22,7 @@ public class IdeaSaveRequestDto {
         return Idea.builder()
                 .title(title)
                 .content(content)
-                .author("") // TODO: ログイン情報から作成者を追加
+                .author("testUser") // TODO: ログイン情報から作成者を追加
                 .build();
     }
 }

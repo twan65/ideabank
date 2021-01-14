@@ -1,7 +1,8 @@
 package com.ideabank.web.idea.service;
 
+import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
-import com.ideabank.web.idea.dto.IdeaListResponseDto;
+import com.ideabank.web.idea.dto.IdeaResponseDto;
 import com.ideabank.web.idea.dto.IdeaSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,23 @@ public class IdeaService {
      * @return 全てのアイデア
      */
     @Transactional(readOnly = true)
-    public List<IdeaListResponseDto> findAll() {
+    public List<IdeaResponseDto> findAll() {
         return ideaRepository.findAll().stream()
-                .map(IdeaListResponseDto::new)
+                .map(IdeaResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * アイデアを1件取得する。
+     *
+     * @param id 記事ID
+     * @return アイデア詳細
+     */
+    public IdeaResponseDto findById(Long id) {
+        Idea idea = ideaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("該当アイデアがありません。Id=" + id));
+
+        return new IdeaResponseDto(idea);
     }
 
     /**
