@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class IdeaResponseDto {
 
-    private long id;
+    private long ideaId;
     private String title;
     private String content;
     private String author;
@@ -16,7 +16,7 @@ public class IdeaResponseDto {
 //    private boolean isDeleted;
 
     public IdeaResponseDto(Idea idea) {
-        this.id = idea.getId();
+        this.ideaId = idea.getIdeaId();
         this.title = idea.getTitle();
         this.author = idea.getAuthor();
         this.content = idea.getContent();

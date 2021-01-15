@@ -51,7 +51,7 @@ public class IdeaService {
    */
   @Transactional
   public Long save(IdeaSaveRequestDto requestDto) {
-    return ideaRepository.save(requestDto.toEntity()).getId();
+    return ideaRepository.save(requestDto.toEntity()).getIdeaId();
   }
 
   /**

@@ -1,12 +1,10 @@
 package com.ideabank.web.idea.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaSaveRequestDto;
 import com.ideabank.web.idea.dto.IdeaUpdateRequestDto;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -22,8 +20,6 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -71,10 +67,10 @@ public class IdeaApiControllerTest {
     assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
     // データを取得して検証を行う。
-    List<Idea> postsList = ideaRepository.findAll();
+    List<Idea> ideaList = ideaRepository.findAll();
 
-    assertThat(postsList.get(0).getTitle()).isEqualTo(title);
-    assertThat(postsList.get(0).getContent()).isEqualTo(content);
+    assertThat(ideaList.get(0).getTitle()).isEqualTo(title);
+    assertThat(ideaList.get(0).getContent()).isEqualTo(content);
   }
 
   @Test
@@ -87,7 +83,7 @@ public class IdeaApiControllerTest {
             .author("testUser")
             .build());
 
-    Long updateId = saveIdea.getId();
+    Long updateId = saveIdea.getIdeaId();
     String updateTitle = "title2";
     String updateContent = "content2";
 
@@ -110,10 +106,10 @@ public class IdeaApiControllerTest {
     assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
     // データを取得して検証を行う。
-    List<Idea> postsList = ideaRepository.findAll();
+    List<Idea> ideaList = ideaRepository.findAll();
 
-    assertThat(postsList.get(0).getTitle()).isEqualTo(updateTitle);
-    assertThat(postsList.get(0).getContent()).isEqualTo(updateContent);
+    assertThat(ideaList.get(0).getTitle()).isEqualTo(updateTitle);
+    assertThat(ideaList.get(0).getContent()).isEqualTo(updateContent);
   }
 
   @Test
@@ -126,7 +122,7 @@ public class IdeaApiControllerTest {
             .author("testUser")
             .build());
 
-    Long logicalDeleteId = saveIdea.getId();
+    Long logicalDeleteId = saveIdea.getIdeaId();
 
     // URLを作成
     String url = "http://localhost:" + port + "/api/v1/idea/" + logicalDeleteId;
@@ -138,9 +134,9 @@ public class IdeaApiControllerTest {
     assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
     // データを取得して検証を行う。
-    List<Idea> postsList = ideaRepository.findAll();
+    List<Idea> ideaList = ideaRepository.findAll();
 
-    assertThat(postsList.size()).isEqualTo(0);
-    assertThat(postsList.size()).isEqualTo(0);
+    assertThat(ideaList.size()).isEqualTo(0);
+    assertThat(ideaList.size()).isEqualTo(0);
   }
 }

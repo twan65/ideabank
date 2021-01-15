@@ -37,11 +37,11 @@ var idea = {
             content: $('#content').val(),
         };
 
-        var id = $('#id').val();
+        var ideaId = $('#ideaId').val();
 
         $.ajax({
             type: 'PUT',
-            url: '/api/v1/idea/' + id,
+            url: '/api/v1/idea/' + ideaId,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -53,11 +53,11 @@ var idea = {
         });
     },
     delete : function () {
-        var id = $('#id').val();
+        var ideaId = $('#id').val();
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/v1/idea/' + id,
+            url: '/api/v1/idea/' + ideaId,
             contentType: 'application/json; charset=utf-8',
         }).done(function(data) {
             alert('アイデアが削除されました。');

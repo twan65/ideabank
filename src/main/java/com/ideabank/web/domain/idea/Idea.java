@@ -1,12 +1,14 @@
 package com.ideabank.web.domain.idea;
 
 import com.ideabank.web.domain.BaseTimeEntity;
+import com.ideabank.web.domain.comment.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -16,7 +18,8 @@ public class Idea extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "idea_id")
+    private long ideaId;
 
     @Column(length = 50, nullable = false)
     private String title;
@@ -28,6 +31,10 @@ public class Idea extends BaseTimeEntity {
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idea_id")
+    private List<Comment> comments;
 
     @Builder
     public Idea(String title, String content, String author) {
@@ -42,9 +49,7 @@ public class Idea extends BaseTimeEntity {
         this.content = content;
     }
 
-    /**
-     * アイデアEntityを取得後に呼び出すと論理削除される。
-     */
+    /** アイデアEntityを取得後に呼び出すと論理削除される。 */
     public void logicalDelete() {
         this.isDeleted = true;
     }
