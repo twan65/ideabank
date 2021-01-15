@@ -33,4 +33,14 @@ public class IdeaApiController {
   public Long update(@PathVariable Long id, @RequestBody IdeaUpdateRequestDto requestDto) {
     return ideaService.update(id, requestDto);
   }
+
+  /**
+   * アイデアidに該当するアイデアの論理削除を行う。
+   * @param id アイデアID
+   * @return アイデアID
+   */
+  @DeleteMapping("/api/v1/idea/{id}")
+  public Long delete(@PathVariable Long id) {
+    return ideaService.delete(id);
+  }
 }

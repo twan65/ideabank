@@ -71,4 +71,19 @@ public class IdeaService {
 
         return id;
     }
+
+    /**
+     * アイデアidに該当するアイデアの論理削除を行う。
+     * @param id アイデアID
+     * @return アイデアID
+     */
+    @Transactional
+    public Long delete(Long id) {
+        Idea idea = ideaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("該当のアイデアがありません。Id=" + id));
+
+        idea.logicalDelete();
+
+        return id;
+    }
 }

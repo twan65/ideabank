@@ -9,6 +9,9 @@ var idea = {
         $('#btn-edit').on('click', function () {
             _this.edit();
         });
+        $('#btn-delete').on('click', function () {
+            _this.delete();
+        });
     },
     save : function () {
         var data = {
@@ -44,6 +47,20 @@ var idea = {
             data: JSON.stringify(data)
         }).done(function(data) {
             alert('アイデアが更新されました。');
+            window.location.href = '/';
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    delete : function () {
+        var id = $('#id').val();
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/idea/' + id,
+            contentType: 'application/json; charset=utf-8',
+        }).done(function(data) {
+            alert('アイデアが削除されました。');
             window.location.href = '/';
         }).fail(function(error) {
             alert(JSON.stringify(error));

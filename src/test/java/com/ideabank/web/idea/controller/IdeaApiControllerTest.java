@@ -115,4 +115,32 @@ public class IdeaApiControllerTest {
     assertThat(postsList.get(0).getTitle()).isEqualTo(updateTitle);
     assertThat(postsList.get(0).getContent()).isEqualTo(updateContent);
   }
+
+  @Test
+  @DisplayName("アイデアの論理削除処理を検証する。")
+  public void logicalDeleteIdea() throws Exception {
+    // アイデア登録
+    Idea saveIdea = ideaRepository.save(Idea.builder()
+            .title("title")
+            .content("content")
+            .author("testUser")
+            .build());
+
+    Long logicalDeleteId = saveIdea.getId();
+
+    // URLを作成
+    String url = "http://localhost:" + port + "/api/v1/idea/" + logicalDeleteId;
+
+    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, Long.class);
+
+    // 検証
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+    // データを取得して検証を行う。
+    List<Idea> postsList = ideaRepository.findAll();
+
+    assertThat(postsList.size()).isEqualTo(0);
+    assertThat(postsList.size()).isEqualTo(0);
+  }
 }

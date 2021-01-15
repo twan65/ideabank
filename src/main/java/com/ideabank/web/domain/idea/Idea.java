@@ -41,4 +41,11 @@ public class Idea extends BaseTimeEntity {
         this.title = title;
         this.content = content;
     }
+
+    /**
+     * アイデアEntityを取得後に呼び出すと論理削除される。
+     */
+    public void logicalDelete() {
+        this.isDeleted = true;
+    }
 }
