@@ -34,13 +34,14 @@ public class IdeaService {
    * @param id 記事ID
    * @return アイデア詳細
    */
+  @Transactional(readOnly = true)
   public IdeaResponseDto findById(Long id) {
     Idea idea =
         ideaRepository
             .findById(id)
             .orElseThrow(() -> new IllegalArgumentException("該当アイデアがありません。Id=" + id));
 
-    return new IdeaResponseDto(idea);
+    return new IdeaResponseDto(idea, idea.getComments());
   }
 
   /**
