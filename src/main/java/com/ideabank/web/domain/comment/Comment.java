@@ -39,6 +39,10 @@ public class Comment extends BaseTimeEntity {
         this.author = author;
     }
 
+    public void update(String comment) {
+        this.comment = comment;
+    }
+
     public void logicalDelete() {
         this.isDeleted = true;
     }

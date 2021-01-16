@@ -1,6 +1,7 @@
 package com.ideabank.web.comment.controller;
 
 import com.ideabank.web.comment.dto.CommentSaveRequestDto;
+import com.ideabank.web.comment.dto.CommentUpdateRequestDto;
 import com.ideabank.web.domain.comment.Comment;
 import com.ideabank.web.domain.comment.CommentRepository;
 import com.ideabank.web.domain.idea.Idea;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -93,5 +96,49 @@ public class CommentApiControllerTest {
     assertThat(commentList.get(0).getIdeaId()).isEqualTo(ideaId);
     assertThat(commentList.get(0).getComment()).isEqualTo(comment);
     assertThat(commentList.get(0).getAuthor()).isEqualTo(author);
+  }
+
+  @Test
+  @DisplayName("コメント更新処理を検証する。")
+  public void updateComment() throws Exception {
+    // アイデア登録
+    Idea saveIdea = ideaRepository.save(Idea.builder()
+            .title("title")
+            .content("content")
+            .author("testUser")
+            .build());
+
+
+    // コメント登録
+    Comment saveComment = commentRepository.save(Comment.builder()
+            .ideaId(saveIdea.getIdeaId())
+    .comment("comment")
+    .author("testUser")
+    .build());
+
+
+    // given
+    Long updateId = saveComment.getCommentId();
+    String updateComment = "comment2";
+
+    CommentUpdateRequestDto requestDto = CommentUpdateRequestDto.builder()
+            .comment(updateComment)
+            .build();
+
+    String url = "http://localhost:" + port + "/api/v1/comment/" + updateId;
+
+    HttpEntity<CommentUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+
+    // RestTemplateを利用してAPIを呼び出す。（URL、HTTPメソッド、パラメータ、戻り値の型）
+    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+    // 検証
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+    // データを取得して検証を行う。
+    List<Comment> commentList = commentRepository.findAll();
+
+    assertThat(commentList.get(0).getComment()).isEqualTo(updateComment);
   }
 }
