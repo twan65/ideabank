@@ -6,7 +6,7 @@
     <meta name="context-path" th:content="@{/}"/>
 
     <th:block th:include="fragments/include-link"></th:block>
-    <link th:href="@{/css/comment/comment.css}" rel="stylesheet" />
+    <link th:href="@{/css/comment/comment.css}" rel="stylesheet"/>
 </head>
 <body>
 <th:block th:include="fragments/header"></th:block>
@@ -43,10 +43,14 @@
 
             </form>
 
-            <div class="form-group">
-                <label for="comment">コメント:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
-                <button type="button" class="btn btn-primary" id="btn-comment-save">投稿</button>
+            <div class="form-group row">
+                <div class="col-sm-11">
+                    <label for="comment">コメント:</label>
+                    <textarea class="form-control" rows=2 id="comment"></textarea>
+                </div>
+                <div class="col-sm-1 d-flex align-items-end">
+                    <button type="button" class="btn btn-primary" id="btn-comment-save">投稿</button>
+                </div>
             </div>
 
             <div class="media comment-box" th:each="comment : *{comments}">
@@ -65,7 +69,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
