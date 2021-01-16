@@ -20,6 +20,7 @@ public class Comment extends BaseTimeEntity {
     @Column(name = "comment_id")
     private long commentId;
 
+    // TODO: FK設定が必要なのかを検討
     @Column(name = "idea_id")
     private long ideaId;
 
@@ -36,5 +37,9 @@ public class Comment extends BaseTimeEntity {
         this.ideaId = ideaId;
         this.comment = comment;
         this.author = author;
+    }
+
+    public void logicalDelete() {
+        this.isDeleted = true;
     }
 }

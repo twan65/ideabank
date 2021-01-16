@@ -1,5 +1,7 @@
 package com.ideabank.web.idea.service;
 
+import com.ideabank.web.domain.comment.Comment;
+import com.ideabank.web.domain.comment.CommentRepository;
 import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaResponseDto;
@@ -72,6 +74,9 @@ public class IdeaService {
 
     // 特にSQLを投げなくてもJPAの永続性コンテキストのため、Updateされる。（Dirty checking）
     idea.update(requestDto.getTitle(), requestDto.getContent());
+
+    // 関係テーブルであるコメントテーブルも削除を行う。
+    idea.getComments().forEach(Comment::logicalDelete);
 
     return id;
   }
