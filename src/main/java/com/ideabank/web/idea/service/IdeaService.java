@@ -1,7 +1,6 @@
 package com.ideabank.web.idea.service;
 
 import com.ideabank.web.domain.comment.Comment;
-import com.ideabank.web.domain.comment.CommentRepository;
 import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaResponseDto;

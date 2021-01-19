@@ -15,35 +15,35 @@ import javax.persistence.*;
 @Where(clause = "is_deleted = false")
 public class Comment extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
-    private long commentId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "comment_id")
+  private long commentId;
 
-    // TODO: FK設定が必要なのかを検討
-    @Column(name = "idea_id")
-    private long ideaId;
+  // TODO: FK設定が必要なのかを検討
+  @Column(name = "idea_id")
+  private long ideaId;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String comment;
+  @Column(columnDefinition = "TEXT", nullable = false)
+  private String comment;
 
-    private String author;
+  private String author;
 
-    @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted;
+  @Column(name = "is_deleted", nullable = false)
+  private boolean isDeleted;
 
-    @Builder
-    public Comment(String comment, String author, long ideaId) {
-        this.ideaId = ideaId;
-        this.comment = comment;
-        this.author = author;
-    }
+  @Builder
+  public Comment(String comment, String author, long ideaId) {
+    this.ideaId = ideaId;
+    this.comment = comment;
+    this.author = author;
+  }
 
-    public void update(String comment) {
-        this.comment = comment;
-    }
+  public void update(String comment) {
+    this.comment = comment;
+  }
 
-    public void logicalDelete() {
-        this.isDeleted = true;
-    }
+  public void logicalDelete() {
+    this.isDeleted = true;
+  }
 }
