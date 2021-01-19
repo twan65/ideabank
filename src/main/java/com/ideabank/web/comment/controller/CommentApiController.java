@@ -23,15 +23,21 @@ public class CommentApiController {
     return commentService.save(requestDto);
   }
 
-
-  //  @PutMapping("/api/v1/comment/{id}")
-  //  public Long update(
-  //      @PathVariable("id") Long commentId, @RequestBody CommentUpdateRequestDto requestDto) {
-  //    return commentService.update(commentId, requestDto);
-  //  }
+  /**
+   * コメント更新を行う。
+   * @param commentId コメントID
+   * @param requestDto コメント
+   * @return コメントID
+   */
+  @PutMapping("/api/v1/comment/{id}")
+  public Long update(
+      @PathVariable("id") Long commentId, @RequestBody CommentUpdateRequestDto requestDto) {
+    return commentService.update(commentId, requestDto);
+  }
 
   /**
    * コメント削除を行う。
+   *
    * @param commentId コメントID
    * @return コメントID
    */

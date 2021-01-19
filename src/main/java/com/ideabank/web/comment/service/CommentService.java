@@ -25,18 +25,27 @@ public class CommentService {
     return commentRepository.save(requestDto.toEntity()).getCommentId();
   }
 
-  //    @Transactional
-  //    public Long update(Long commentId, CommentUpdateRequestDto requestDto) {
-  //        Comment comment = commentRepository.findById(commentId)
-  //        .orElseThrow(() -> new IllegalArgumentException("該当のコメントがありません。コメントID=" + commentId));
-  //
-  //        comment.update(requestDto.getComment());
-  //
-  //        return commentId;
-  //    }
+  /**
+   * コメント更新を行う。
+   * @param commentId コメントID
+   * @param requestDto コメント
+   * @return コメントID
+   */
+  @Transactional
+  public Long update(Long commentId, CommentUpdateRequestDto requestDto) {
+    Comment comment =
+        commentRepository
+            .findById(commentId)
+            .orElseThrow(() -> new IllegalArgumentException("該当のコメントがありません。コメントID=" + commentId));
+
+    comment.update(requestDto.getComment());
+
+    return commentId;
+  }
 
   /**
    * コメント削除を行う。
+   *
    * @param commentId コメントID
    * @return コメントID
    */

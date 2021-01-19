@@ -99,49 +99,49 @@ public class CommentApiControllerTest {
     assertThat(commentList.get(0).getAuthor()).isEqualTo(author);
   }
 
-//  @Test
-//  @DisplayName("コメント更新処理を検証する。")
-//  public void updateComment() throws Exception {
-//    // アイデア登録
-//    Idea saveIdea = ideaRepository.save(Idea.builder()
-//            .title("title")
-//            .content("content")
-//            .author("testUser")
-//            .build());
-//
-//
-//    // コメント登録
-//    Comment saveComment = commentRepository.save(Comment.builder()
-//            .ideaId(saveIdea.getIdeaId())
-//    .comment("comment")
-//    .author("testUser")
-//    .build());
-//
-//
-//    // given
-//    Long updateId = saveComment.getCommentId();
-//    String updateComment = "comment2";
-//
-//    CommentUpdateRequestDto requestDto = CommentUpdateRequestDto.builder()
-//            .comment(updateComment)
-//            .build();
-//
-//    String url = "http://localhost:" + port + "/api/v1/comment/" + updateId;
-//
-//    HttpEntity<CommentUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
-//
-//    // RestTemplateを利用してAPIを呼び出す。（URL、HTTPメソッド、パラメータ、戻り値の型）
-//    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
-//
-//    // 検証
-//    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-//    assertThat(responseEntity.getBody()).isGreaterThan(0L);
-//
-//    // データを取得して検証を行う。
-//    List<Comment> commentList = commentRepository.findAll();
-//
-//    assertThat(commentList.get(0).getComment()).isEqualTo(updateComment);
-//  }
+  @Test
+  @DisplayName("コメント更新処理を検証する。")
+  public void updateComment() throws Exception {
+    // アイデア登録
+    Idea saveIdea = ideaRepository.save(Idea.builder()
+            .title("title")
+            .content("content")
+            .author("testUser")
+            .build());
+
+
+    // コメント登録
+    Comment saveComment = commentRepository.save(Comment.builder()
+            .ideaId(saveIdea.getIdeaId())
+    .comment("comment")
+    .author("testUser")
+    .build());
+
+
+    // given
+    Long updateId = saveComment.getCommentId();
+    String updateComment = "comment2";
+
+    CommentUpdateRequestDto requestDto = CommentUpdateRequestDto.builder()
+            .comment(updateComment)
+            .build();
+
+    String url = "http://localhost:" + port + "/api/v1/comment/" + updateId;
+
+    HttpEntity<CommentUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
+
+    // RestTemplateを利用してAPIを呼び出す。（URL、HTTPメソッド、パラメータ、戻り値の型）
+    ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Long.class);
+
+    // 検証
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+    assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+    // データを取得して検証を行う。
+    List<Comment> commentList = commentRepository.findAll();
+
+    assertThat(commentList.get(0).getComment()).isEqualTo(updateComment);
+  }
 
   @Test
   @DisplayName("コメントの論理削除処理を検証する。")
