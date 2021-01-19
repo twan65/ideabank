@@ -144,8 +144,8 @@ public class CommentApiControllerTest {
   }
 
   @Test
-  @DisplayName("コメントの論理削除処理を検証する。")
-  public void logicalDeleteIdea() throws Exception {
+  @DisplayName("コメントの削除処理を検証する。")
+  public void deleteComment() throws Exception {
     // アイデア登録
     Idea saveIdea = ideaRepository.save(Idea.builder()
             .title("title")
@@ -160,7 +160,6 @@ public class CommentApiControllerTest {
             .comment("comment")
             .author("testUser")
             .build());
-
 
     // given
     Long deleteId = saveComment.getCommentId();

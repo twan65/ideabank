@@ -1,6 +1,6 @@
 package com.ideabank.web.idea.service;
 
-import com.ideabank.web.domain.comment.Comment;
+import com.ideabank.web.domain.comment.CommentRepository;
 import com.ideabank.web.domain.idea.Idea;
 import com.ideabank.web.domain.idea.IdeaRepository;
 import com.ideabank.web.idea.dto.IdeaResponseDto;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class IdeaService {
 
   private final IdeaRepository ideaRepository;
+  private final CommentRepository commentRepository;
 
   /**
    * 全アイデアを取得する。
@@ -74,9 +75,6 @@ public class IdeaService {
     // 特にSQLを投げなくてもJPAの永続性コンテキストのため、Updateされる。（Dirty checking）
     idea.update(requestDto.getTitle(), requestDto.getContent());
 
-    // 関係テーブルであるコメントテーブルも削除を行う。
-    idea.getComments().forEach(Comment::logicalDelete);
-
     return id;
   }
 
@@ -94,6 +92,9 @@ public class IdeaService {
             .orElseThrow(() -> new IllegalArgumentException("該当のアイデアがありません。Id=" + id));
 
     idea.logicalDelete();
+
+    // 関係テーブルであるコメントテーブルも削除を行う。
+    idea.getComments().forEach(commentRepository::delete);
 
     return id;
   }

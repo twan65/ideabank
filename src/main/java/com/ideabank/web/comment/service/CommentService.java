@@ -56,7 +56,7 @@ public class CommentService {
             .findById(commentId)
             .orElseThrow(() -> new IllegalArgumentException("該当のコメントがありません。コメントID=" + commentId));
 
-    comment.logicalDelete();
+    commentRepository.delete(comment);
 
     return commentId;
   }

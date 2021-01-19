@@ -1,18 +1,15 @@
 package com.ideabank.web.domain.comment;
 
 import com.ideabank.web.domain.BaseTimeEntity;
-import com.ideabank.web.domain.idea.Idea;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
 @Entity
-@Where(clause = "is_deleted = false")
 public class Comment extends BaseTimeEntity {
 
   @Id
@@ -41,9 +38,5 @@ public class Comment extends BaseTimeEntity {
 
   public void update(String comment) {
     this.comment = comment;
-  }
-
-  public void logicalDelete() {
-    this.isDeleted = true;
   }
 }
