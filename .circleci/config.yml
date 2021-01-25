@@ -9,11 +9,11 @@ jobs: # 一連のステップ
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
     docker: # Docker でステップを実行します
 
-      - image: circleci/openjdk:11.0.3-jdk-stretch # このイメージをすべての `steps` が実行されるプライマリ コンテナとして使用します
-      - image: circleci/postgres:12-alpine
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: circle_test
+#      - image: circleci/openjdk:11.0.3-jdk-stretch # このイメージをすべての `steps` が実行されるプライマリ コンテナとして使用します
+#      - image: circleci/postgres:12-alpine
+#        environment:
+#          POSTGRES_USER: postgres
+#          POSTGRES_DB: circle_test
     steps: # 実行可能コマンドの集合
       - checkout # ソース コードを作業ディレクトリにチェックアウトします
       # 依存関係キャッシュについては https://circleci.com/ja/docs/2.0/caching/ をお読みください
